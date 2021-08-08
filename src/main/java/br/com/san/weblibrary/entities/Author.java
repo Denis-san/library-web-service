@@ -1,16 +1,31 @@
 package br.com.san.weblibrary.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import br.com.san.weblibrary.entities.enums.Nationality;
 
-public class Author {
+@Entity
+@Table(name = "tb_author")
+public class Author implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String shortBiography;
 	private Integer nationality;
 	
+	@ManyToMany(mappedBy = "categories")
 	private Set<Book> books = new HashSet<Book>();
 	
 	public Author() {

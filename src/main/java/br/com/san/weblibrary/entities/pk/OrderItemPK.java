@@ -1,9 +1,15 @@
 package br.com.san.weblibrary.entities.pk;
 
+import java.io.Serializable;
+
+import javax.persistence.Embeddable;
+
 import br.com.san.weblibrary.entities.Book;
 import br.com.san.weblibrary.entities.Order;
 
-public class OrderItemPK {
+@Embeddable
+public class OrderItemPK implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	
 	private Order order;

@@ -1,30 +1,50 @@
 package br.com.san.weblibrary.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.san.weblibrary.entities.enums.Language;
 
-public class Book {
+@Entity
+@Table(name = "tb_book")
+public class Book implements Serializable{
+	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
 	private Integer year;
 	private Integer language;
 	private Integer isbn;
 	
+	@ManyToMany
+	@JoinTable(name = "tb_book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<Category>(); 
 	
+	@ManyToMany
+	@JoinTable(name = "tb_book_authors", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private Set<Author> authors = new HashSet<Author>(); 
 	
+	@OneToMany(mappedBy =  "id.book")
 	private Set<OrderItem> orders = new HashSet<OrderItem>();
 	
 	public Book() {
 	
 	}
-
 
 	public Book(Long id, String title, Integer year, Language language, Integer isbn) {
 		super();
@@ -92,6 +112,7 @@ public class Book {
 	public Set<Author> getAuthors() {
 		return authors;
 	}
+	
 	
 	@JsonIgnore
 	public Set<Order> getOrders(){
