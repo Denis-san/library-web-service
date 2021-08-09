@@ -26,8 +26,8 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
-	@OneToMany(mappedBy = "client")
 	@JsonIgnore
+	@OneToMany(mappedBy = "client")
 	private Set<Order> orders = new HashSet<Order>();
 	
 	public User() {

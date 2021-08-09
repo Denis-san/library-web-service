@@ -3,6 +3,8 @@ package br.com.san.weblibrary.entities.pk;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import br.com.san.weblibrary.entities.Book;
 import br.com.san.weblibrary.entities.Order;
@@ -11,8 +13,12 @@ import br.com.san.weblibrary.entities.Order;
 public class OrderItemPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	
+	@ManyToOne
+	@JoinColumn(name = "order_id")
 	private Order order;
+	
+	@ManyToOne
+	@JoinColumn(name = "book_id")
 	private Book book;
 	
 	

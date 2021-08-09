@@ -3,7 +3,9 @@ package br.com.san.weblibrary.entities.enums;
 public enum OrderStatus {
 
 	AVAILABLE(1),
-	UNAVAILABLE(2);
+	UNAVAILABLE(2),
+	WAITING_PROCESSING(3),
+	LOANED(4);
 	
 	private int code;
 	
