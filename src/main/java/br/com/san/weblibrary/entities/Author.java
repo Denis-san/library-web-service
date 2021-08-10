@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import br.com.san.weblibrary.entities.enums.Nationality;
 
 @Entity
@@ -25,7 +30,10 @@ public class Author implements Serializable{
 	private String shortBiography;
 	private Integer nationality;
 	
-	@ManyToMany(mappedBy = "categories")
+	
+	
+	@JsonIgnoreProperties("authors")
+	@ManyToMany(mappedBy = "authors")
 	private Set<Book> books = new HashSet<Book>();
 	
 	public Author() {
